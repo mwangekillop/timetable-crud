@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Timetable &amp; Goals</title>
+  <style>
+    :root { --primary: #1a4fa3; --border: #c9d3e3; --bg: #f7f9fc; --danger: #b3261e; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", Arial, sans-serif; background: var(--bg); color: #1c2333; line-height: 1.5; }
+    header { background: var(--primary); color: #fff; padding: 1rem; text-align: center; }
+    header h1 { margin: 0; font-size: 1.5rem; }
+    main { max-width: 1000px; margin: 0 auto; padding: 1rem; }
+    section { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+    h2 { margin-top: 0; color: var(--primary); font-size: 1.2rem; }
+    form { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: .75rem; }
+    label { display: block; font-weight: 600; font-size: .9rem; margin-bottom: .2rem; }
+    input, select { width: 100%; padding: .5rem; border: 2px solid var(--border); border-radius: 6px; font: inherit; }
+    input:focus, select:focus, button:focus-visible { outline: 3px solid #ff9f1c; outline-offset: 1px; }
+    .actions { grid-column: 1 / -1; display: flex; gap: .5rem; flex-wrap: wrap; }
+    button { padding: .5rem 1rem; border: 2px solid var(--primary); background: var(--primary); color: #fff; border-radius: 6px; font: inherit; font-weight: 600; cursor: pointer; }
+    button.secondary { background: #fff; color: var(--primary); }
+    button.danger { background: var(--danger); border-color: var(--danger); }
+    button.small { padding: .25rem .6rem; font-size: .85rem; }
+    #message { min-height: 1.5em; font-weight: 600; }
+    #message.error { color: var(--danger); }
+    #message.ok { color: #1b7a3a; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid var(--border); padding: .5rem; text-align: left; font-size: .9rem; }
+    th { background: var(--primary); color: #fff; }
+    tbody tr:nth-child(even) { background: var(--bg); }
+    td.row-actions { white-space: nowrap; display: flex; gap: .3rem; }
+  </style>
+</head>
+<body>
+  <header><h1>Student Timetable &amp; Goals</h1></header>
+  <main>
+    <section>
+      <h2 id="form-title">Add a class</h2>
+      <form id="record-form" novalidate>
+        <input type="hidden" id="record-id">
+        <div><label for="course_code">Course code *</label><input id="course_code" maxlength="20" required></div>
+        <div><label for="course_name">Course name</label><input id="course_name"></div>
+        <div><label for="lecturer">Lecturer</label><input id="lecturer"></div>
+        <div>
+          <label for="day_of_week">Day</label>
+          <select id="day_of_week">
+            <option value="">Select day</option>
+            <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
+            <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
+          </select>
+        </div>
+        <div><label for="start_time">Start time</label><input id="start_time" type="time"></div>
+        <div><label for="end_time">End time</label><input id="end_time" type="time"></div>
+        <div><label for="venue">Venue</label><input id="venue"></div>
+        <div><label for="goal">Goal</label><input id="goal"></div>
+        <div class="actions">
+          <button type="submit" id="save-btn">Save</button>
+          <button type="button" id="cancel-btn" class="secondary" hidden>Cancel edit</button>
+        </div>
+      </form>
+      <p id="message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section>
+      <h2>My timetable</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th><th>Code</th><th>Course</th><th>Lecturer</th><th>Day</th>
+              <th>Time</th><th>Venue</th><th>Goal</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="records"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
